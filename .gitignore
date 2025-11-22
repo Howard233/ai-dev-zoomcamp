@@ -1,0 +1,30 @@
+# Node modules
+node_modules/
+
+# Build output
+dist/
+build/
+.vite/
+.cache/
+
+# Lockfiles (optional to track)
+package-lock.json
+yarn.lock
+
+# Env files
+.env
+.env.*
+
+# Logs
+npm-debug.log*
+*.log
+
+# OS files
+.DS_Store
+
+# IDE/editor
+.vscode/
+.idea/
+
+# Coverage
+coverage/

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Edit {{ todo.title }}{% endblock %}
+
+{% block content %}
+<section class="card">
+  <h2>Edit TODO</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label for="{{ form.title.id_for_label }}">Title</label>
+    {{ form.title.errors }}
+    {{ form.title }}
+
+    <label for="{{ form.description.id_for_label }}">Description</label>
+    {{ form.description.errors }}
+    {{ form.description }}
+
+    <label for="{{ form.due_date.id_for_label }}">Due date</label>
+    {{ form.due_date.errors }}
+    {{ form.due_date }}
+
+    <label for="{{ form.is_completed.id_for_label }}">Completed</label>
+    {{ form.is_completed.errors }}
+    {{ form.is_completed }}
+
+    <div class="actions">
+      <button type="submit">Save</button>
+      <a href="{% url 'todos:todo_list' %}">
+        <button type="button" class="secondary">Cancel</button>
+      </a>
+    </div>
+  </form>
+</section>
+{% endblock %}

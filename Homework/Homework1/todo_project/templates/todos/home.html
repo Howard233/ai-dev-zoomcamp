@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block title %}Todo List{% endblock %}
+
+{% block content %}
+<section class="card">
+  <h2>Create a new TODO</h2>
+  <form method="post" action="{% url 'todos:todo_list' %}">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    <label for="{{ form.title.id_for_label }}">Title</label>
+    {{ form.title.errors }}
+    {{ form.title }}
+
+    <label for="{{ form.description.id_for_label }}">Description</label>
+    {{ form.description.errors }}
+    {{ form.description }}
+
+    <label for="{{ form.due_date.id_for_label }}">Due date</label>
+    {{ form.due_date.errors }}
+    {{ form.due_date }}
+
+    <label for="{{ form.is_completed.id_for_label }}">Completed</label>
+    {{ form.is_completed.errors }}
+    {{ form.is_completed }}
+
+    <button type="submit">Add TODO</button>
+  </form>
+</section>
+
+<section class="card">
+  <h2>Current TODOs</h2>
+  {% if todos %}
+  <ul class="todo-list">
+    {% for todo in todos %}
+    <li class="todo-item">
+      <div>
+        <strong class="{% if todo.is_completed %}completed{% endif %}">{{ todo.title }}</strong>
+        {% if todo.description %}
+        <div>{{ todo.description }}</div>
+        {% endif %}
+        <div class="todo-meta">
+          {% if todo.due_date %}Due: {{ todo.due_date }} · {% endif %}
+          Created: {{ todo.created_at|date:"Y-m-d H:i" }}
+        </div>
+      </div>
+      <div class="actions">
+        <form method="post" action="{% url 'todos:todo_toggle' todo.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="secondary">
+            {% if todo.is_completed %}Mark Pending{% else %}Mark Done{% endif %}
+          </button>
+        </form>
+        <a href="{% url 'todos:todo_update' todo.pk %}">
+          <button type="button">Edit</button>
+        </a>
+        <form method="post" action="{% url 'todos:todo_delete' todo.pk %}">
+          {% csrf_token %}
+          <button type="submit" class="danger">Delete</button>
+        </form>
+      </div>
+    </li>
+    {% endfor %}
+  </ul>
+  {% else %}
+  <p>No TODOs yet. Add one above!</p>
+  {% endif %}
+</section>
+{% endblock %}

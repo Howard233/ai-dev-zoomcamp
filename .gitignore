@@ -28,3 +28,13 @@ npm-debug.log*
 
 # Coverage
 coverage/
+
+# Python / Django
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+.pytest_cache/
+.mypy_cache/
+db.sqlite3

@@ -7,6 +7,8 @@ This Django app implements a simple TODO tracker as required in the AI Dev Tools
 - Admin management via Django admin panel
 - Form-based UI backed by views, templates, and tests
 
+The entire application is built with [`Codex`](https://openai.com/codex/) from OpenAI in VSCode.
+
 ### Installation
 
 1. Install [uv](https://github.com/astral-sh/uv) if you don't have it yet:

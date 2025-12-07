@@ -1,0 +1,77 @@
+openapi: 3.0.3
+info:
+  title: Collaborative Interview Platform API
+  version: 1.0.0
+  description: |
+    Lightweight API that powers the real-time coding interview application. It
+    issues new collaborative rooms and exposes the latest state for an existing
+    session.
+servers:
+  - url: http://localhost:4000
+paths:
+  /api/sessions:
+    post:
+      summary: Create a new interview session
+      description: Generates a short-lived collaborative session identifier and returns a shareable link for the frontend
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                language:
+                  type: string
+                  description: Preferred language that the editor should load
+                  example: javascript
+                code:
+                  type: string
+                  description: Optional starter code snippet
+                  example: console.log('hi')
+      responses:
+        '201':
+          description: Session created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId:
+                    type: string
+                  shareUrl:
+                    type: string
+                    format: uri
+                  language:
+                    type: string
+        '500':
+          description: Server error
+  /api/sessions/{sessionId}:
+    get:
+      summary: Fetch current session state
+      parameters:
+        - in: path
+          name: sessionId
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: Session state
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  sessionId:
+                    type: string
+                  language:
+                    type: string
+                  code:
+                    type: string
+                  latestOutput:
+                    type: string
+                  updatedAt:
+                    type: integer
+                    format: int64
+        '404':
+          description: Session not found

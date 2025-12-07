@@ -18,6 +18,8 @@ This document tracks the steps and decisions taken while building the Homework 2
 - Limited the language dropdown to only the languages we can execute/highlight today (JS/TS/Python).
 - Added frontend build serving fallback to `backend/src/createServer.js` (serves `frontend/dist` when present) and introduced a multi-stage Dockerfile rooted at Node 20 slim that builds the Vite frontend, bundles everything, and runs `npm run start --prefix backend`. README documents build/run commands.
 - Moved ignore rules to the project root (`.gitignore`) and added `.dockerignore` so Docker contexts stay small and we don't accidentally commit build artifacts.
+- Adjusted the Express SPA fallback to use `app.use` instead of `app.get('*', ...)` (Express 5 treats bare `*` as invalid) to fix the Docker runtime crash.
+- Refreshed the UI on the home page: new hero section, highlight cards, and updated layout/styling in `Home.jsx` + `App.css` to give the app a more polished, interview-ready appearance.
 
 ## Conversation recap & clarifications
 - User asked what `npm install express cors socket.io uuid` does; clarified that it installs dependencies locally in the backend folder and noted that Node’s per-project `node_modules` already acts like a Python venv.

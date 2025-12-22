@@ -38,3 +38,5 @@ venv/
 .pytest_cache/
 .mypy_cache/
 db.sqlite3
+
+fastmcp-main.zip
